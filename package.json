@@ -1,0 +1,29 @@
+{
+  "name": "vulcanize-less",
+  "version": "0.0.0",
+  "description": "Preprocessing module for vulcanize to allow use of less css stylesheets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wballard/vulcanize-less.git"
+  },
+  "keywords": [
+    "polymer",
+    "vulcanize",
+    "less"
+  ],
+  "author": "Will Ballard <wballard@mailframe.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wballard/vulcanize-less/issues"
+  },
+  "homepage": "https://github.com/wballard/vulcanize-less",
+  "dependencies": {
+    "less": ">=1.7.0",
+    "asyncflow": "~0.2.1",
+    "fibers": "~1.0.1"
+  }
+}
