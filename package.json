@@ -23,7 +23,6 @@
   "homepage": "https://github.com/wballard/vulcanize-less",
   "dependencies": {
     "less": ">=1.7.0",
-    "asyncflow": "~0.2.1",
     "fibers": "~1.0.1"
   }
 }
