@@ -1,11 +1,14 @@
+/*
+ * Less/CSS transform. This has a simple detection mechanism based on the
+ * filename, and will attempt to set a sane set of import directories in order
+ * to allow @import... processing.
+ */
 "use strict";
 
 var path = require('path');
-var Fiber = require('fibers');
-var Future = require('fibers/future');
 var less = require('less');
 
-module.exports = function(filename, content) {
+module.exports = function(filename, content, callback) {
   var extensions = ['.less'];
   if (extensions.indexOf(path.extname(filename)) > -1) {
     var options = {
@@ -15,26 +18,15 @@ module.exports = function(filename, content) {
         process.cwd()
       ]
     }
-    var parse = Future.wrap(function(e, cb){
-      var parser = new less.Parser(options);
-      parser.parse(content, function(e, parsed){
-        if (e) {
-          console.error(e.message);
-          cb(e, undefined);
-        } else {
-          cb(undefined, parsed.toCSS(options));
-        }
-      });
-    });
-    Fiber(function(){
-      try {
-        content = parse(content).wait();
-      } catch(e) {
-        content = '';
+    var parser = new less.Parser(options);
+    parser.parse(content, function(e, parsed){
+      if (e) {
+        callback(e, filename, content);
+      } else {
+        callback(undefined, filename, parsed.toCSS(options));
       }
-    }).run();
-    return content;
+    });
   } else {
-    return content;
+    callback(undefined, filename, content);
   }
 }
